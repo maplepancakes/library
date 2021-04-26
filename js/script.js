@@ -29,10 +29,77 @@ function Book(author, title, pages, read)
     this.read = read;
 }
 
+function appendBookToPage(index)
+{
+    const libraryContainer = document.querySelector(`#library-container`);
+
+    const bookContainer = document.createElement(`div`);
+    bookContainer.classList.add(`book-container`);
+
+    const author = document.createElement(`label`);
+    author.classList.add(`author`);
+
+    const title = document.createElement(`label`);
+    title.classList.add(`title`);
+
+    const pages = document.createElement(`label`);
+    pages.classList.add(`pages`);
+
+    const read = document.createElement(`label`);
+    read.classList.add(`read`);
+
+    const images = ``; // come back to this later
+
+    author.textContent = myLibrary[index].author;
+    title.textContent = myLibrary[index].title;
+    pages.textContent = myLibrary[index].pages;
+    read.textContent = myLibrary[index].read;
+
+    bookContainer.appendChild(author);
+    bookContainer.appendChild(title);
+    bookContainer.appendChild(pages);
+    bookContainer.appendChild(read);
+
+    libraryContainer.appendChild(bookContainer);
+}
+
 function addBookToLibrary() 
 {
+    const submitButton = document.querySelector(`#submit-form-button`);
 
+    const inputAuthor = document.querySelector(`#input-author`);
+    const inputTitle = document.querySelector(`#input-title`);
+    const inputPages = document.querySelector(`#input-pages`);
+    const readSelection = document.querySelector(`#read-selection`);
+    const uploadImage = ``; // come back to this later
+
+    submitButton.addEventListener(`click`, function(e)
+    {
+        let author = inputAuthor.value;
+        let title = inputTitle.value;
+
+        // remember to add checking for pages
+        let pages = inputPages.value + ` pages`;
+        let selection = readSelection.value;
+        let image; // come back to this later
+
+        const book = new Book(author, title, pages, selection);
+
+        myLibrary.push(book);
+
+        appendBookToPage(myLibrary.length - 1);
+    });
+}
+
+function displayBooksUponLoad()
+{
+    for (let i = 0; i < myLibrary.length; i++)
+    {
+        appendBookToPage(i);
+    }
 }
 
 // Function call
 openNewBookButton();
+addBookToLibrary();
+displayBooksUponLoad();
