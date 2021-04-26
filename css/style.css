@@ -28,3 +28,42 @@ h1
     background-color: white;
 }
 
+#upload-new-book:hover
+{
+    cursor: pointer;
+}
+
+#library-container
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fill, 520px);
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
+    margin-top: 40px;
+    margin-left: 60px;
+}
+
+.book-container
+{
+    height: 500px;
+    width: 300px;
+    display: grid;
+    border: 1px solid black;
+}
+
+.book-image
+{
+    max-width: 200px;
+    max-height: 300px;
+    margin-left: 55px;
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+.author, .title, .pages, .read
+{
+    margin-left: 55px;
+}
+
+
