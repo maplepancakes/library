@@ -18,7 +18,7 @@ h1
     flex-grow: 2;
 }
 
-#upload-new-book
+#new-book-button
 {
     font-family: 'Old Standard TT', serif;
     font-size: 20px;
@@ -28,9 +28,23 @@ h1
     background-color: white;
 }
 
-#upload-new-book:hover
+#new-book-button:hover
 {
     cursor: pointer;
+    text-decoration: underline;
+}
+
+#new-book-form
+{
+    /* display toggles to grid with button press */
+    display: none;
+    position: fixed;
+    grid-row-gap: 10px;
+    right: 10px;
+    top: 80px; 
+    background: white;
+    border: 1px solid black;
+    padding: 10px;
 }
 
 #library-container
