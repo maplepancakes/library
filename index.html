@@ -13,7 +13,21 @@
         <header>
             <div id="header-container">
                 <h1>Book Library</h1>
-                <button id="upload-new-book" type="submit">New Book</button>
+                <button id="new-book-button" type="button">New Book</button>
+                <form id="new-book-form">
+                    <label for="author">Author:</label>
+                    <input type="text" name="email" required>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" required>
+                    <label for="pages">Pages:</label>
+                    <input type="text" name="pages" required>
+                    <label for="read">Read?</label>
+                    <select id="read-selection" name="read">
+                        <option value="read">Read</option>
+                        <option value="not-read">Not Read</option>
+                    </select>
+                    <button id="submit-form-button" type="submit">Submit</button>
+                </form>
             </div>
         </header>
         <div id="library-container">
