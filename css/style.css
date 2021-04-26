@@ -69,6 +69,11 @@ select:hover
     margin-top: 3px;
 }
 
+#submit-form-button
+{
+    height: 40px;
+}
+
 #library-container
 {
     display: grid;
@@ -90,6 +95,8 @@ select:hover
 
 .book-image
 {
+    min-width: 200px;
+    min-height: 300px;
     max-width: 200px;
     max-height: 300px;
     margin-left: 55px;
