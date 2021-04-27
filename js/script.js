@@ -56,16 +56,21 @@ function appendBookToPage(index)
     images.setAttribute(`alt`, `No image displayed`);
     images.setAttribute(`src`, myLibrary[index].imageSource);
 
+    const trashIcon = document.createElement(`img`);
+    trashIcon.setAttribute(`id`, `delete-icon`);
+    trashIcon.setAttribute(`src`, `images/delete.png`);
+
     author.textContent = myLibrary[index].author;
     title.textContent = myLibrary[index].title;
     pages.textContent = myLibrary[index].pages;
     read.textContent = myLibrary[index].read;
 
+    // Appends alternate text if text content is blank
     if (author.textContent === ``)
     {
         author.textContent = `Unknown author`;
     }
-    
+
     if (title.textContent === ``)
     {
         title.textContent = `Unknown title`;
@@ -81,6 +86,7 @@ function appendBookToPage(index)
     bookContainer.appendChild(title);
     bookContainer.appendChild(pages);
     bookContainer.appendChild(read);
+    bookContainer.appendChild(trashIcon);
 
     libraryContainer.appendChild(bookContainer);
 }
