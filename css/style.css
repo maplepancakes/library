@@ -88,6 +88,7 @@ select:hover
     width: 300px;
     display: grid;
     border: 1px solid black;
+    position: relative;
 }
 
 .book-image
@@ -108,4 +109,16 @@ select:hover
     margin-left: 55px;
 }
 
+#delete-icon
+{
+    transform: scale(0.05);
+    position: absolute;
+    top: 225px;
+    left: 30px;
+}
+
+#delete-icon:hover
+{
+    cursor: pointer;
+}
 
