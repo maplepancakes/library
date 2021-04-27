@@ -18,11 +18,12 @@ function openNewBookButton()
     })
 }
 
+// Array for storing book objects
 let myLibrary = [];
 
+// Constructor
 function Book(author, title, pages, read)
 {
-    // constructor
     this.author = author;
     this.title = title;
     this.pages = pages;
@@ -48,13 +49,18 @@ function appendBookToPage(index)
     const read = document.createElement(`label`);
     read.classList.add(`read`);
 
-    const images = ``; // come back to this later
+    const images = document.createElement(`img`); // come back to this later
+    images.classList.add(`book-image`);
+    images.setAttribute(`alt`, `No image displayed`);
 
     author.textContent = myLibrary[index].author;
     title.textContent = myLibrary[index].title;
     pages.textContent = myLibrary[index].pages;
     read.textContent = myLibrary[index].read;
 
+    // images.setAttribute(`src`, myLibrary.....)
+
+    bookContainer.appendChild(images);
     bookContainer.appendChild(author);
     bookContainer.appendChild(title);
     bookContainer.appendChild(pages);
