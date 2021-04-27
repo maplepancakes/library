@@ -149,8 +149,9 @@ function toggleRead()
     {
         readIcon[i].onclick = function()
         {
+            let id = readIcon[i].id;
+
             let checkIfRead = readIcon[i].checked;
-            console.log(i);
 
             index = myLibrary.findIndex(function(obj)
             {
@@ -159,7 +160,7 @@ function toggleRead()
 
             myLibrary[index].isRead(checkIfRead);
 
-            const toggleReadBook = document.querySelector(`#book-container-${i} .read`);
+            const toggleReadBook = document.querySelector(`#book-container-${id} .read`);
             toggleReadBook.textContent = `${myLibrary[index].read}`;
         }
     }
