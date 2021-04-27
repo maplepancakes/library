@@ -22,14 +22,16 @@ function openNewBookButton()
 let myLibrary = [];
 
 // Constructor
-function Book(author, title, pages, read)
+function Book(author, title, pages, read, imageSource)
 {
     this.author = author;
     this.title = title;
     this.pages = pages;
     this.read = read;
+    this.imageSource = imageSource;
 }
 
+// Appends book to page display
 function appendBookToPage(index)
 {
     const libraryContainer = document.querySelector(`#library-container`);
@@ -52,13 +54,12 @@ function appendBookToPage(index)
     const images = document.createElement(`img`); // come back to this later
     images.classList.add(`book-image`);
     images.setAttribute(`alt`, `No image displayed`);
+    images.setAttribute(`src`, myLibrary[index].imageSource);
 
     author.textContent = myLibrary[index].author;
     title.textContent = myLibrary[index].title;
     pages.textContent = myLibrary[index].pages;
     read.textContent = myLibrary[index].read;
-
-    // images.setAttribute(`src`, myLibrary.....)
 
     bookContainer.appendChild(images);
     bookContainer.appendChild(author);
@@ -69,6 +70,7 @@ function appendBookToPage(index)
     libraryContainer.appendChild(bookContainer);
 }
 
+// Adds book object to myLibrary variable, and adds book to page display
 function addBookToLibrary() 
 {
     const submitButton = document.querySelector(`#submit-form-button`);
@@ -77,7 +79,18 @@ function addBookToLibrary()
     const inputTitle = document.querySelector(`#input-title`);
     const inputPages = document.querySelector(`#input-pages`);
     const readSelection = document.querySelector(`#read-selection`);
-    const uploadImage = ``; // come back to this later
+    const uploadImage = document.querySelector(`#upload-image-button`);
+
+    let src = ``;
+
+    uploadImage.addEventListener(`change`, function(e)
+    {
+        if (this.files && this.files[0])
+        {
+            src = ``;
+            src = URL.createObjectURL(this.files[0]);
+        }
+    });
 
     submitButton.addEventListener(`click`, function(e)
     {
@@ -87,9 +100,8 @@ function addBookToLibrary()
         // remember to add checking for pages
         let pages = inputPages.value + ` pages`;
         let selection = readSelection.value;
-        let image; // come back to this later
 
-        const book = new Book(author, title, pages, selection);
+        const book = new Book(author, title, pages, selection, src);
 
         myLibrary.push(book);
 
@@ -97,6 +109,7 @@ function addBookToLibrary()
     });
 }
 
+// Displays book objects stored in myLibrary variable upon page load
 function displayBooksUponLoad()
 {
     for (let i = 0; i < myLibrary.length; i++)
@@ -106,6 +119,6 @@ function displayBooksUponLoad()
 }
 
 // Function call
+displayBooksUponLoad();
 openNewBookButton();
 addBookToLibrary();
-displayBooksUponLoad();
