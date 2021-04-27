@@ -18,12 +18,7 @@ h1
     flex-grow: 2;
 }
 
-button:hover
-{
-    cursor: pointer;
-}
-
-select:hover
+button:hover, select:hover, #upload-image-button:hover, .delete-icon:hover, .read-icon:hover
 {
     cursor: pointer;
 }
@@ -60,11 +55,6 @@ select:hover
 #upload-image-label
 {
     margin-top: 3px;
-}
-
-#upload-image-button
-{
-    cursor: pointer;
 }
 
 #submit-form-button
@@ -110,16 +100,18 @@ select:hover
     margin-left: 55px;
 }
 
+.read-icon
+{
+    display: block;
+    position: absolute;
+    right: 0px;
+}
+
 .delete-icon
 {
     transform: scale(0.05);
     position: absolute;
     top: 225px;
     left: 30px;
-}
-
-.delete-icon:hover
-{
-    cursor: pointer;
 }
 
