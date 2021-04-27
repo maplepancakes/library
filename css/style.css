@@ -56,17 +56,14 @@ select:hover
     padding: 10px;
 }
 
-#upload-image-button-container
-{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 #upload-image-label
 {
     margin-top: 3px;
+}
+
+#upload-image-button
+{
+    cursor: pointer;
 }
 
 #submit-form-button
