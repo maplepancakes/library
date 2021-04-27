@@ -21,6 +21,8 @@ function openNewBookButton()
 // Array for storing book objects
 let myLibrary = [];
 
+let bookIndex = 0;
+
 // Constructor
 function Book(author, title, pages, read, imageSource, index)
 {
@@ -52,7 +54,7 @@ function appendBookToPage(index)
 
     const bookContainer = document.createElement(`div`);
     bookContainer.classList.add(`book-container`);
-    bookContainer.setAttribute(`id`, `book-container-${myLibrary.length - 1}`);
+    bookContainer.setAttribute(`id`, `book-container-${bookIndex}`);
 
     const author = document.createElement(`label`);
     author.classList.add(`author`);
@@ -73,11 +75,13 @@ function appendBookToPage(index)
 
     const trashIcon = document.createElement(`img`);
     trashIcon.classList.add(`delete-icon`);
+    trashIcon.setAttribute(`id`,`${bookIndex}`);
     trashIcon.setAttribute(`src`, `images/delete.png`);
     trashIcon.setAttribute(`alt`, `Trash icon here`);
 
     const readIcon = document.createElement(`input`);
     readIcon.classList.add(`read-icon`);
+    readIcon.setAttribute(`id`, `${bookIndex}`);
     readIcon.setAttribute(`type`, `checkbox`);
 
     author.textContent = myLibrary[index].author;
@@ -110,6 +114,8 @@ function appendBookToPage(index)
     bookContainer.appendChild(readIcon);
 
     libraryContainer.appendChild(bookContainer);
+
+    bookIndex++;
 }
 
 // Removes books from display and myLibrary variable
@@ -121,12 +127,14 @@ function removeBooks()
     {
         trashIcon[i].onclick = function()
         {   
-            const bookToDelete = document.querySelector(`#book-container-${i}`);
+            let id = trashIcon[i].id;
+
+            const bookToDelete = document.querySelector(`#book-container-${id}`);
             bookToDelete.parentNode.removeChild(bookToDelete);
 
             myLibrary = myLibrary.filter(function(obj)
             {
-                return obj.index !== i;
+                return obj.index !== id;
             }); 
         }
     }
@@ -189,7 +197,7 @@ function addBookToLibrary()
         // remember to add checking for pages
         let pages = inputPages.value + ` pages`;
         let selection = readSelection.value;
-        let index = myLibrary.length;
+        let index = bookIndex;
 
         const book = new Book(author, title, pages, selection, src, index);
 
