@@ -22,13 +22,14 @@ function openNewBookButton()
 let myLibrary = [];
 
 // Constructor
-function Book(author, title, pages, read, imageSource)
+function Book(author, title, pages, read, imageSource, index)
 {
     this.author = author;
     this.title = title;
     this.pages = pages;
     this.read = read;
     this.imageSource = imageSource;
+    this.index = index;
 }
 
 // Appends book to page display
@@ -38,6 +39,7 @@ function appendBookToPage(index)
 
     const bookContainer = document.createElement(`div`);
     bookContainer.classList.add(`book-container`);
+    bookContainer.setAttribute(`id`, `book-container-${myLibrary.length - 1}`);
 
     const author = document.createElement(`label`);
     author.classList.add(`author`);
@@ -57,8 +59,10 @@ function appendBookToPage(index)
     images.setAttribute(`src`, myLibrary[index].imageSource);
 
     const trashIcon = document.createElement(`img`);
-    trashIcon.setAttribute(`id`, `delete-icon`);
+    trashIcon.classList.add(`delete-icon`);
+ // trashIcon.setAttribute(`id`, `delete-icon-${myLibrary.length - 1}`);
     trashIcon.setAttribute(`src`, `images/delete.png`);
+    trashIcon.setAttribute(`alt`, `Trash icon here`);
 
     author.textContent = myLibrary[index].author;
     title.textContent = myLibrary[index].title;
@@ -89,6 +93,26 @@ function appendBookToPage(index)
     bookContainer.appendChild(trashIcon);
 
     libraryContainer.appendChild(bookContainer);
+}
+
+// Removes books from display and myLibrary variable
+function removeBooks()
+{  
+    const trashIcon = document.querySelectorAll(`.delete-icon`);
+
+    for (let i = 0; i < trashIcon.length; i++)
+    {
+        trashIcon[i].onclick = function()
+        {   
+            const bookToDelete = document.querySelector(`#book-container-${i}`);
+            bookToDelete.parentNode.removeChild(bookToDelete);
+
+            myLibrary = myLibrary.filter(function(obj)
+            {
+                return obj.index !== i;
+            }); 
+        }
+    }
 }
 
 // Adds book object to myLibrary variable, and adds book to page display
@@ -123,8 +147,9 @@ function addBookToLibrary()
         // remember to add checking for pages
         let pages = inputPages.value + ` pages`;
         let selection = readSelection.value;
+        let index = myLibrary.length;
 
-        const book = new Book(author, title, pages, selection, src);
+        const book = new Book(author, title, pages, selection, src, index);
 
         myLibrary.push(book);
 
@@ -134,12 +159,14 @@ function addBookToLibrary()
         inputTitle.value = ``;
         inputPages.value = ``;
         uploadImage.value = ``;
+
+        removeBooks();
     });
 }
 
 // Displays book objects stored in myLibrary variable upon page load
 function displayBooksUponLoad()
-{
+{   
     for (let i = 0; i < myLibrary.length; i++)
     {
         appendBookToPage(i);
@@ -150,3 +177,4 @@ function displayBooksUponLoad()
 displayBooksUponLoad();
 openNewBookButton();
 addBookToLibrary();
+removeBooks();
