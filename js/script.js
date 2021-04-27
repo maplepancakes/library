@@ -51,7 +51,7 @@ function appendBookToPage(index)
     const read = document.createElement(`label`);
     read.classList.add(`read`);
 
-    const images = document.createElement(`img`); // come back to this later
+    const images = document.createElement(`img`);
     images.classList.add(`book-image`);
     images.setAttribute(`alt`, `No image displayed`);
     images.setAttribute(`src`, myLibrary[index].imageSource);
@@ -60,6 +60,21 @@ function appendBookToPage(index)
     title.textContent = myLibrary[index].title;
     pages.textContent = myLibrary[index].pages;
     read.textContent = myLibrary[index].read;
+
+    if (author.textContent === ``)
+    {
+        author.textContent = `Unknown author`;
+    }
+    
+    if (title.textContent === ``)
+    {
+        title.textContent = `Unknown title`;
+    }
+    
+    if (pages.textContent === ` pages`)
+    {
+        pages.textContent = `Unknown number of pages`;
+    }
 
     bookContainer.appendChild(images);
     bookContainer.appendChild(author);
@@ -89,6 +104,8 @@ function addBookToLibrary()
         {
             src = ``;
             src = URL.createObjectURL(this.files[0]);
+
+            console.log(uploadImage);
         }
     });
 
@@ -106,6 +123,11 @@ function addBookToLibrary()
         myLibrary.push(book);
 
         appendBookToPage(myLibrary.length - 1);
+
+        inputAuthor.value = ``;
+        inputTitle.value = ``;
+        inputPages.value = ``;
+        uploadImage.value = ``;
     });
 }
 
