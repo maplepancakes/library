@@ -32,6 +32,19 @@ function Book(author, title, pages, read, imageSource, index)
     this.index = index;
 }
 
+// Set prototype function for Book constructor
+Book.prototype.isRead = function(check)
+{
+    if (check === true)
+    {
+        this.read = `Read`;
+    }
+    else if (check === false)
+    {
+        this.read = `Not Read`;
+    }
+}
+
 // Appends book to page display
 function appendBookToPage(index)
 {
@@ -60,9 +73,12 @@ function appendBookToPage(index)
 
     const trashIcon = document.createElement(`img`);
     trashIcon.classList.add(`delete-icon`);
- // trashIcon.setAttribute(`id`, `delete-icon-${myLibrary.length - 1}`);
     trashIcon.setAttribute(`src`, `images/delete.png`);
     trashIcon.setAttribute(`alt`, `Trash icon here`);
+
+    const readIcon = document.createElement(`input`);
+    readIcon.classList.add(`read-icon`);
+    readIcon.setAttribute(`type`, `checkbox`);
 
     author.textContent = myLibrary[index].author;
     title.textContent = myLibrary[index].title;
@@ -91,6 +107,7 @@ function appendBookToPage(index)
     bookContainer.appendChild(pages);
     bookContainer.appendChild(read);
     bookContainer.appendChild(trashIcon);
+    bookContainer.appendChild(readIcon);
 
     libraryContainer.appendChild(bookContainer);
 }
@@ -111,6 +128,31 @@ function removeBooks()
             {
                 return obj.index !== i;
             }); 
+        }
+    }
+}
+
+// Toggles whether book is read or not
+function toggleRead()
+{
+    const readIcon = document.querySelectorAll(`.read-icon`);
+
+    for (let i = 0; i < readIcon.length; i++)
+    {
+        readIcon[i].onclick = function()
+        {
+            let checkIfRead = readIcon[i].checked;
+            console.log(i);
+
+            index = myLibrary.findIndex(function(obj)
+            {
+                return obj.index === i;
+            }); 
+
+            myLibrary[index].isRead(checkIfRead);
+
+            const toggleReadBook = document.querySelector(`#book-container-${i} .read`);
+            toggleReadBook.textContent = `${myLibrary[index].read}`;
         }
     }
 }
@@ -161,6 +203,7 @@ function addBookToLibrary()
         uploadImage.value = ``;
 
         removeBooks();
+        toggleRead();
     });
 }
 
