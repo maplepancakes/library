@@ -102,6 +102,8 @@ select:hover
     margin-left: 55px;
     margin-top: 10px;
     border: 1px solid black;
+    text-align: center;
+    line-height: 200px;
 }
 
 .author, .title, .pages, .read
