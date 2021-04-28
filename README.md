@@ -1,6 +1,11 @@
-# PROJECT STATUS: In Progress
+# PROJECT STATUS: Completed
 
-Things to fix: -
-1. Repeating book container IDs
-2. Add condition to check checkbox if uploaded book is set as read initially
-3. How to store book library on cloud?
+A place to store all your books digitally, without all the features that make it a book.
+
+Created using HTML, CSS, and JavaScript.
+
+Live link: https://maplepancakes.github.io/library/
+
+### Future Considerations
+
+1. Addition of cloud storage
