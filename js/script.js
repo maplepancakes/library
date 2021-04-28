@@ -105,6 +105,11 @@ function appendBookToPage(index)
         pages.textContent = `Unknown number of pages`;
     }
 
+    if (read.textContent === `Read`)
+    {
+        readIcon.setAttribute(`checked`, `true`);
+    }
+
     bookContainer.appendChild(images);
     bookContainer.appendChild(author);
     bookContainer.appendChild(title);
