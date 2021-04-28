@@ -24,6 +24,21 @@ function storageAvailable(type) {
     }
 }
 
+if (localStorage.getItem(`myLibrary`) === null && localStorage.getItem(`bookIndex`) === null)
+{
+    localStorage.setItem(`myLibrary`, JSON.stringify([]));
+    localStorage.setItem(`bookIndex`, `0`);
+}
+
+// Array for storing book objects
+let myLibrary = JSON.parse(localStorage.getItem(`myLibrary`));
+console.log(myLibrary)
+
+// Counter for tracking the ids of generated book container, checkbox, and trash icon
+let bookIndex = localStorage.getItem(`bookIndex`);
+console.log(bookIndex)
+
+
 // Toggles popup form for uploading new book
 function openNewBookButton()
 {
@@ -43,12 +58,6 @@ function openNewBookButton()
         }
     })
 }
-
-// Array for storing book objects
-let myLibrary = [];
-
-// Counter for tracking the ids of generated book container, checkbox, and trash icon
-let bookIndex = 0;
 
 // Constructor
 function Book(author, title, pages, read, imageSource, index)
@@ -75,13 +84,13 @@ Book.prototype.isRead = function(check)
 }
 
 // Appends book container and all of its contents onto user display
-function appendBookToPage(index)
+function appendBookToPage(index, idSource)
 {
     const libraryContainer = document.querySelector(`#library-container`);
 
     const bookContainer = document.createElement(`div`);
     bookContainer.classList.add(`book-container`);
-    bookContainer.setAttribute(`id`, `book-container-${bookIndex}`);
+    bookContainer.setAttribute(`id`, `book-container-${idSource}`);
 
     const author = document.createElement(`label`);
     author.classList.add(`author`);
@@ -102,13 +111,13 @@ function appendBookToPage(index)
 
     const trashIcon = document.createElement(`img`);
     trashIcon.classList.add(`delete-icon`);
-    trashIcon.setAttribute(`id`,`${bookIndex}`);
+    trashIcon.setAttribute(`id`,`${idSource}`);
     trashIcon.setAttribute(`src`, `images/delete.png`);
     trashIcon.setAttribute(`alt`, `Trash icon here`);
 
     const readIcon = document.createElement(`input`);
     readIcon.classList.add(`read-icon`);
-    readIcon.setAttribute(`id`, `${bookIndex}`);
+    readIcon.setAttribute(`id`, `${idSource}`);
     readIcon.setAttribute(`type`, `checkbox`);
 
     author.textContent = myLibrary[index].author;
@@ -148,8 +157,6 @@ function appendBookToPage(index)
     bookContainer.appendChild(readIcon);
 
     libraryContainer.appendChild(bookContainer);
-
-    bookIndex++;
 }
 
 // Removes books from display and myLibrary variable
@@ -162,6 +169,7 @@ function removeBooks()
         trashIcon[i].onclick = function()
         {   
             let id = trashIcon[i].id;
+            id = parseInt(id);
 
             // Removes book container and its contents from user display
             const bookToDelete = document.querySelector(`#book-container-${id}`);
@@ -172,6 +180,9 @@ function removeBooks()
             {
                 return obj.index !== id;
             }); 
+            console.log(myLibrary);
+            console.log(id);
+            localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
         }
     }
 }
@@ -186,16 +197,18 @@ function toggleRead()
         readIcon[i].onclick = function()
         {
             let id = readIcon[i].id;
+            id = parseInt(id);
 
             let checkIfRead = readIcon[i].checked;
 
             index = myLibrary.findIndex(function(obj)
             {
-                return obj.index === i;
+                return obj.index === id;
             }); 
 
             // Sets object[read] from 'Read' to 'Not Read' if checkbox on user display is unselected, and 'Not Read' to 'Read' if checkbox on user display is selected
             myLibrary[index].isRead(checkIfRead);
+            localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
 
             // Updates `Read` to `Not Read` on user display if checkbox is selected, and the opposite if checkbox is unselected
             const toggleReadBook = document.querySelector(`#book-container-${id} .read`);
@@ -237,6 +250,9 @@ function mainProgram()
         }
         else
         {
+            bookIndex++;
+            localStorage.setItem(`bookIndex`, JSON.stringify(bookIndex));
+
             inputPages.style = ``;
             inputPages.placeholder = `295`;
 
@@ -249,8 +265,9 @@ function mainProgram()
             const book = new Book(author, title, pages, selection, src, index);
 
             myLibrary.push(book);
+            localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
 
-            appendBookToPage(myLibrary.length - 1);
+            appendBookToPage(myLibrary.length - 1, bookIndex);
 
             inputAuthor.value = ``;
             inputTitle.value = ``;
@@ -268,7 +285,7 @@ function displayBooksUponLoad()
 {   
     for (let i = 0; i < myLibrary.length; i++)
     {
-        appendBookToPage(i);
+        appendBookToPage(myLibrary.length - 1, myLibrary[i].index);
     }
 }
 
