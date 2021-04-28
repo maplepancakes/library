@@ -234,10 +234,12 @@ function mainProgram()
         if (isNaN(parseInt(inputPages.value)) === true)
         {
             inputPages.style = `border: 1px solid red; height: 26px; border-radius: 3px;`;
+            inputPages.placeholder = `Please enter a valid number!`;
         }
         else
         {
             inputPages.style = ``;
+            inputPages.placeholder = `295`;
 
             let author = inputAuthor.value;
             let title = inputTitle.value;
