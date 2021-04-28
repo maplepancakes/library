@@ -30,14 +30,13 @@ if (localStorage.getItem(`myLibrary`) === null && localStorage.getItem(`bookInde
     localStorage.setItem(`bookIndex`, `0`);
 }
 
-// Array for storing book objects
-let myLibrary = JSON.parse(localStorage.getItem(`myLibrary`)).map(book => Object.assign(new Book(), book));
-console.log(myLibrary)
+// Retrieves array from localStorage
+let myLibrary = JSON.parse(localStorage.getItem(`myLibrary`));
+// Re-assigns any lost prototypal inheritance due to object being stringified when being stored in localStorage
+myLibrary = myLibrary.map(book => Object.assign(new Book(), book));
 
 // Counter for tracking the ids of generated book container, checkbox, and trash icon
 let bookIndex = localStorage.getItem(`bookIndex`);
-console.log(bookIndex)
-
 
 // Toggles popup form for uploading new book
 function openNewBookButton()
@@ -181,6 +180,7 @@ function removeBooks()
                 return obj.index !== id;
             }); 
 
+            // Updates myLibrary array in localStorage
             localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
         }
     }
@@ -214,6 +214,7 @@ function toggleRead()
             const toggleReadBook = document.querySelector(`#book-container-${id} .read`);
             toggleReadBook.textContent = `${myLibrary[index].read}`;
 
+            // Updates myLibrary array in localStorage
             localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
         }
     }
@@ -253,6 +254,7 @@ function mainProgram()
         else
         {
             bookIndex++;
+            // Updates bookIndex in localStorage
             localStorage.setItem(`bookIndex`, JSON.stringify(bookIndex));
 
             inputPages.style = ``;
@@ -267,6 +269,7 @@ function mainProgram()
             const book = new Book(author, title, pages, selection, src, index);
 
             myLibrary.push(book);
+            // Updates myLibrary array in localStorage
             localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
 
             appendBookToPage(myLibrary.length - 1, bookIndex);
