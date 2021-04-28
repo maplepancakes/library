@@ -290,7 +290,7 @@ function displayBooksUponLoad()
 {   
     for (let i = 0; i < myLibrary.length; i++)
     {
-        appendBookToPage(myLibrary.length - 1, myLibrary[i].index);
+        appendBookToPage(i, myLibrary[i].index);
     }
 }
 
