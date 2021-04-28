@@ -230,27 +230,35 @@ function mainProgram()
     // Appends all inputted information into myLibrary array when user clicks on the Submit button
     submitButton.addEventListener(`click`, function(e)
     {
-        let author = inputAuthor.value;
-        let title = inputTitle.value;
+        // Checks if value entered into pages textbox is a number or not
+        if (isNaN(parseInt(inputPages.value)) === true)
+        {
+            inputPages.style = `border: 1px solid red; height: 26px; border-radius: 3px;`;
+        }
+        else
+        {
+            inputPages.style = ``;
 
-        // remember to add checking for pages
-        let pages = inputPages.value + ` pages`;
-        let selection = readSelection.value;
-        let index = bookIndex;
+            let author = inputAuthor.value;
+            let title = inputTitle.value;
+            let pages = inputPages.value + ` pages`;
+            let selection = readSelection.value;
+            let index = bookIndex;
 
-        const book = new Book(author, title, pages, selection, src, index);
+            const book = new Book(author, title, pages, selection, src, index);
 
-        myLibrary.push(book);
+            myLibrary.push(book);
 
-        appendBookToPage(myLibrary.length - 1);
+            appendBookToPage(myLibrary.length - 1);
 
-        inputAuthor.value = ``;
-        inputTitle.value = ``;
-        inputPages.value = ``;
-        uploadImage.value = ``;
+            inputAuthor.value = ``;
+            inputTitle.value = ``;
+            inputPages.value = ``;
+            uploadImage.value = ``;
 
-        removeBooks();
-        toggleRead();
+            removeBooks();
+            toggleRead();
+        }
     });
 }
 
