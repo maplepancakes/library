@@ -231,10 +231,9 @@ function mainProgram()
     submitButton.addEventListener(`click`, function(e)
     {
         // Checks if value entered into pages textbox is a number or not
-        if (isNaN(parseInt(inputPages.value)) === true)
+        if (isNaN(parseInt(inputPages.value)) === true && inputPages.value !== ``)
         {
             inputPages.style = `border: 1px solid red; height: 26px; border-radius: 3px;`;
-            inputPages.placeholder = `Please enter a valid number!`;
         }
         else
         {
