@@ -31,7 +31,7 @@ if (localStorage.getItem(`myLibrary`) === null && localStorage.getItem(`bookInde
 }
 
 // Array for storing book objects
-let myLibrary = JSON.parse(localStorage.getItem(`myLibrary`));
+let myLibrary = JSON.parse(localStorage.getItem(`myLibrary`)).map(book => Object.assign(new Book(), book));
 console.log(myLibrary)
 
 // Counter for tracking the ids of generated book container, checkbox, and trash icon
@@ -180,8 +180,7 @@ function removeBooks()
             {
                 return obj.index !== id;
             }); 
-            console.log(myLibrary);
-            console.log(id);
+
             localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
         }
     }
@@ -203,16 +202,19 @@ function toggleRead()
 
             index = myLibrary.findIndex(function(obj)
             {
+                console.log(`Object Index: ${obj.index}`)
+                console.log(`ID: ${id}`)
                 return obj.index === id;
             }); 
 
             // Sets object[read] from 'Read' to 'Not Read' if checkbox on user display is unselected, and 'Not Read' to 'Read' if checkbox on user display is selected
             myLibrary[index].isRead(checkIfRead);
-            localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
 
             // Updates `Read` to `Not Read` on user display if checkbox is selected, and the opposite if checkbox is unselected
             const toggleReadBook = document.querySelector(`#book-container-${id} .read`);
             toggleReadBook.textContent = `${myLibrary[index].read}`;
+
+            localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
         }
     }
 }
@@ -294,3 +296,4 @@ displayBooksUponLoad();
 openNewBookButton();
 mainProgram();
 removeBooks();
+toggleRead();
