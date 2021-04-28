@@ -164,6 +164,7 @@ function removeBooks()
         trashIcon[i].onclick = function()
         {   
             let id = trashIcon[i].id;
+            id = parseInt(id);
 
             // Removes book container and its contents from user display
             const bookToDelete = document.querySelector(`#book-container-${id}`);
@@ -174,6 +175,7 @@ function removeBooks()
             {
                 return obj.index !== id;
             }); 
+            console.log(myLibrary)
         }
     }
 }
@@ -188,12 +190,13 @@ function toggleRead()
         readIcon[i].onclick = function()
         {
             let id = readIcon[i].id;
+            id = parseInt(id);
 
             let checkIfRead = readIcon[i].checked;
 
             index = myLibrary.findIndex(function(obj)
             {
-                return obj.index === i;
+                return obj.index === id;
             }); 
 
             // Sets object[read] from 'Read' to 'Not Read' if checkbox on user display is unselected, and 'Not Read' to 'Read' if checkbox on user display is selected
@@ -279,3 +282,4 @@ displayBooksUponLoad();
 openNewBookButton();
 mainProgram();
 removeBooks();
+
