@@ -21,6 +21,7 @@ function openNewBookButton()
 // Array for storing book objects
 let myLibrary = [];
 
+// Counter for tracking the ids of generated book container, checkbox, and trash icon
 let bookIndex = 0;
 
 // Constructor
@@ -34,7 +35,7 @@ function Book(author, title, pages, read, imageSource, index)
     this.index = index;
 }
 
-// Set prototype function for Book constructor
+// Prototypal function for Book object: Sets object[read] to `Read` if parameter is true, else object[read] is set to `Not Read`
 Book.prototype.isRead = function(check)
 {
     if (check === true)
@@ -47,7 +48,7 @@ Book.prototype.isRead = function(check)
     }
 }
 
-// Appends book to page display
+// Appends book container and all of its contents onto user display
 function appendBookToPage(index)
 {
     const libraryContainer = document.querySelector(`#library-container`);
@@ -105,11 +106,13 @@ function appendBookToPage(index)
         pages.textContent = `Unknown number of pages`;
     }
 
+    // Appends checked attribute if text content is `Read`
     if (read.textContent === `Read`)
     {
         readIcon.setAttribute(`checked`, `true`);
     }
 
+    // Appends book container and all its contents onto user display
     bookContainer.appendChild(images);
     bookContainer.appendChild(author);
     bookContainer.appendChild(title);
@@ -134,9 +137,11 @@ function removeBooks()
         {   
             let id = trashIcon[i].id;
 
+            // Removes book container and its contents from user display
             const bookToDelete = document.querySelector(`#book-container-${id}`);
             bookToDelete.parentNode.removeChild(bookToDelete);
 
+            // Removes object from myLibrary array
             myLibrary = myLibrary.filter(function(obj)
             {
                 return obj.index !== id;
@@ -163,8 +168,10 @@ function toggleRead()
                 return obj.index === i;
             }); 
 
+            // Sets object[read] from 'Read' to 'Not Read' if checkbox on user display is unselected, and 'Not Read' to 'Read' if checkbox on user display is selected
             myLibrary[index].isRead(checkIfRead);
 
+            // Updates `Read` to `Not Read` on user display if checkbox is selected, and the opposite if checkbox is unselected
             const toggleReadBook = document.querySelector(`#book-container-${id} .read`);
             toggleReadBook.textContent = `${myLibrary[index].read}`;
         }
@@ -172,7 +179,7 @@ function toggleRead()
 }
 
 // Adds book object to myLibrary variable, and adds book to page display
-function addBookToLibrary() 
+function mainProgram() 
 {
     const submitButton = document.querySelector(`#submit-form-button`);
 
@@ -184,17 +191,17 @@ function addBookToLibrary()
 
     let src = ``;
 
+    // Creates image URL when image is uploaded in user display
     uploadImage.addEventListener(`change`, function(e)
     {
         if (this.files && this.files[0])
         {
             src = ``;
             src = URL.createObjectURL(this.files[0]);
-
-            console.log(uploadImage);
         }
     });
 
+    // Appends all inputted information into myLibrary array when user clicks on the Submit button
     submitButton.addEventListener(`click`, function(e)
     {
         let author = inputAuthor.value;
@@ -233,5 +240,5 @@ function displayBooksUponLoad()
 // Function call
 displayBooksUponLoad();
 openNewBookButton();
-addBookToLibrary();
+mainProgram();
 removeBooks();
