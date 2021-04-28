@@ -1,0 +1,19 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "Things to fix: - 1. Repeating book container IDs 2. Add condition to check checkbox if uploaded book is set as read initially 3. How to store book library on cloud?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maplepancakes/library.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maplepancakes/library/issues"
+  },
+  "homepage": "https://github.com/maplepancakes/library#readme"
+}
