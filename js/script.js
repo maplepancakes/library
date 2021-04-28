@@ -202,8 +202,6 @@ function toggleRead()
 
             index = myLibrary.findIndex(function(obj)
             {
-                console.log(`Object Index: ${obj.index}`)
-                console.log(`ID: ${id}`)
                 return obj.index === id;
             }); 
 
@@ -238,8 +236,15 @@ function mainProgram()
     {
         if (this.files && this.files[0])
         {
-            src = ``;
-            src = URL.createObjectURL(this.files[0]);
+            const reader = new FileReader();
+
+            reader.addEventListener(`load`, function(e)
+            {
+                src = reader.result;
+                console.log(src);
+            });
+
+            reader.readAsDataURL(this.files[0]);
         }
     });
 
