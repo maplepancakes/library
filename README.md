@@ -1,6 +1,6 @@
 # PROJECT STATUS: Completed
 
-### Objective: To demonstrate an understanding of prototypal inheritance and local storage.
+### Objective: To demonstrate an understanding of prototypal inheritance, constructors, and local persistent storage.
 
 Created using HTML, CSS, and JavaScript.
 
