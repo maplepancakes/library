@@ -1,6 +1,6 @@
 # PROJECT STATUS: Completed
 
-A place to store all your books digitally, without all the features that make it a book.
+### Objective: To demonstrate an understanding of prototypal inheritance and local storage.
 
 Created using HTML, CSS, and JavaScript.
 
